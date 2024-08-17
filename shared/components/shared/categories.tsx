@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/shared/lib/utils";
+import { useCategoryStore } from "@/store/category";
 import React from "react";
 
 interface Props {
@@ -9,16 +10,16 @@ interface Props {
 }
 
 const arr = [
-  { name: "Комбо", id: 0 },
-  { name: "Коктейли", id: 1 },
-  { name: "Кофе", id: 2 },
-  { name: "Напитки", id: 3 },
-  { name: "Десерты", id: 4 },
+  { name: "Комбо", id: 1 },
+  { name: "Коктейли", id: 2 },
+  { name: "Кофе", id: 3 },
+  { name: "Напитки", id: 4 },
   { name: "Десерты", id: 5 },
+  { name: "Десерты", id: 6 },
 ];
 
 export const Categories: React.FC<Props> = ({ items = arr, className }) => {
-  const categoryActiveId = 0;
+  const categoryActiveId = useCategoryStore((state) => state.activeId);
 
   return (
     <div
