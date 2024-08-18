@@ -2,23 +2,15 @@
 
 import { cn } from "@/shared/lib/utils";
 import { useCategoryStore } from "@/store/category";
+import { Category } from "@prisma/client";
 import React from "react";
 
 interface Props {
-  items?: { name: string; id: number }[];
+  items: Category[];
   className?: string;
 }
 
-const arr = [
-  { name: "Комбо", id: 1 },
-  { name: "Коктейли", id: 2 },
-  { name: "Кофе", id: 3 },
-  { name: "Напитки", id: 4 },
-  { name: "Десерты", id: 5 },
-  { name: "Десерты", id: 6 },
-];
-
-export const Categories: React.FC<Props> = ({ items = arr, className }) => {
+export const Categories: React.FC<Props> = ({ items, className }) => {
   const categoryActiveId = useCategoryStore((state) => state.activeId);
 
   return (
