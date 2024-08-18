@@ -1,6 +1,6 @@
 "use client";
 
-import { Api } from "@/services/api-client";
+import { Api } from "@/shared/services/api-client";
 import { Ingredient } from "@prisma/client";
 import { useEffect, useState } from "react";
 

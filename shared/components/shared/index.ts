@@ -1,3 +1,7 @@
+export { IngredientItem } from "./ingredient-item";
+export { ChoosePizzaForm } from "./modals/choose-pizza-form";
+export { ChooseProductForm } from "./choose-product-form";
+export { ChooseProductModal } from "./modals/choose-product-modal";
 export { SortPopup } from "./sort-popup";
 export { Container } from "./container";
 export { Header } from "./header";
@@ -8,4 +12,7 @@ export { FilterCheckbox } from "./filter-checkbox";
 export { Filters } from "./filters";
 export { SearchInput } from "./search-input";
 export { ProductCard } from "./product-card";
+export { ProductForm } from "./product-form";
+export { PizzaImage } from "./pizza-image";
+export { GroupVariants } from "./group-variants";
 export { ProductsGroupList } from "./products-group-list";

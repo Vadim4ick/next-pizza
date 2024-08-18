@@ -1,6 +1,6 @@
 "use client";
 
-import { Api } from "@/services/api-client";
+import { Api } from "@/shared/services/api-client";
 import { cn } from "@/shared/lib/utils";
 import { Product } from "@prisma/client";
 import { Search } from "lucide-react";
