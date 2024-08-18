@@ -6,5 +6,6 @@ export { Categories } from "./categories";
 export { TopBar } from "./top-bar";
 export { FilterCheckbox } from "./filter-checkbox";
 export { Filters } from "./filters";
+export { SearchInput } from "./search-input";
 export { ProductCard } from "./product-card";
 export { ProductsGroupList } from "./products-group-list";
