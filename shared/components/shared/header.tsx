@@ -9,6 +9,7 @@ import { Container } from "./container";
 import { Button } from "../ui";
 import { ArrowRight, ShoppingCart, User } from "lucide-react";
 import { SearchInput } from "./search-input";
+import { CartButton } from "./cart-button";
 
 interface Props {
   hasSearch?: boolean;
@@ -74,24 +75,7 @@ export const Header: React.FC<Props> = ({
             Войти
           </Button>
 
-          <div>
-            <Button className="relative group">
-              <b>520 Р </b>
-
-              <span className="h-full w-1 bg-white/30 mx-3" />
-
-              <div className="flex items-center gap-1 transition duration-300 group-hover:opacity-0">
-                <ShoppingCart strokeWidth={2} className="size-4 relative" />
-
-                <b>3</b>
-              </div>
-
-              <ArrowRight
-                size={20}
-                className="absolute right-5 transition duration-300 -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0"
-              />
-            </Button>
-          </div>
+          <CartButton />
           {/* <AuthModal
             open={openAuthModal}
             onClose={() => setOpenAuthModal(false)}

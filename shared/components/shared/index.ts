@@ -1,3 +1,5 @@
+export { CartDrawer } from "./cart-drawer";
+export { CartButton } from "./cart-button";
 export { IngredientItem } from "./ingredient-item";
 export { ChoosePizzaForm } from "./modals/choose-pizza-form";
 export { ChooseProductForm } from "./choose-product-form";
