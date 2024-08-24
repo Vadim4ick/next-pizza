@@ -4,10 +4,9 @@ import { Dialog, DialogContent } from "@/shared/components/ui/dialog";
 import { cn } from "@/shared/lib/utils";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { ChooseProductForm } from "../choose-product-form";
 import { ProductWithRelations } from "@/@types/prisma";
-import { ChoosePizzaForm } from "./choose-pizza-form";
 import { useCartStore } from "@/store/cart";
+import { ProductForm } from "../product-form";
 
 interface Props {
   product: ProductWithRelations;
@@ -43,9 +42,9 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
           className
         )}
       >
-        {/* <ProductForm product={product} onSubmit={() => router.back()} /> */}
+        <ProductForm product={product} onSubmit={() => router.back()} />
 
-        {isPizzaForm ? (
+        {/* {isPizzaForm ? (
           <ChoosePizzaForm
             imageUrl={product.imageUrl}
             name={product.name}
@@ -61,7 +60,7 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
             name={product.name}
             onSubmit={onAddProduct}
           />
-        )}
+        )} */}
       </DialogContent>
     </Dialog>
   );
