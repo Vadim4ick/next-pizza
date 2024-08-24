@@ -4,7 +4,7 @@ import { cn } from "@/shared/lib/utils";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+// import { useRouter, useSearchParams } from "next/navigation";
 import { Container } from "./container";
 import { Button } from "../ui";
 import { ArrowRight, ShoppingCart, User } from "lucide-react";
@@ -22,10 +22,10 @@ export const Header: React.FC<Props> = ({
   hasCart = true,
   className,
 }) => {
-  const router = useRouter();
-  const [openAuthModal, setOpenAuthModal] = React.useState(false);
+  // const router = useRouter();
+  // const [openAuthModal, setOpenAuthModal] = React.useState(false);
 
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
   //   React.useEffect(() => {
   //     let toastMessage = "";

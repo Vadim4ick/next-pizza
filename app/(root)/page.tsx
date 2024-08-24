@@ -7,14 +7,15 @@ import {
   Title,
   TopBar,
 } from "@/shared/components";
+import { GetSearchParams, findPizzas } from "@/shared/lib/find-pizzas";
 import { Suspense } from "react";
 
-export default async function Home() {
-  const categories = await prisma.category.findMany({
-    include: {
-      products: { include: { items: true, ingredients: true } },
-    },
-  });
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: GetSearchParams;
+}) {
+  const categories = await findPizzas(searchParams);
 
   return (
     <>
