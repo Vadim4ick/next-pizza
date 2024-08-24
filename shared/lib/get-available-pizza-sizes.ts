@@ -8,8 +8,6 @@ export const getAvailablePizzaSizes = (
 ): Variant[] => {
   const filteredPizzasByType = items.filter((item) => item.pizzaType === type);
 
-  console.log("items", items);
-
   return pizzaSizes.map((item) => ({
     name: item.name,
     value: item.value,

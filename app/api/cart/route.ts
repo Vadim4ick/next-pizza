@@ -60,13 +60,38 @@ export async function POST(req: NextRequest) {
 
     const userCart = await findOrCreateCart(token);
 
-    const findCartItem = await prisma.cartItem.findFirst({
+    const potentialCartItems = await prisma.cartItem.findMany({
       where: {
         cartId: userCart.id,
         productItemId: body.productItemId,
-        ingredients: { every: { id: { in: body.ingredients } } },
+        ingredients: {
+          every: { id: { in: body.ingredients } },
+        },
+      },
+
+      include: {
+        ingredients: true,
       },
     });
+
+    const findCartItem = potentialCartItems.find((item) => {
+      const ingredientIds = item.ingredients.map((ingredient) => ingredient.id);
+      return (
+        ingredientIds.length === body.ingredients?.length &&
+        ingredientIds.every((id) => body.ingredients?.includes(id))
+      );
+    });
+
+    // const findCartItem = await prisma.cartItem.findFirst({
+    //   where: {
+    //     cartId: userCart.id,
+    //     productItemId: body.productItemId,
+    //     ingredients: {
+    //       every: { id: { in: body.ingredients } },
+    //       some: {},
+    //     },
+    //   },
+    // });
 
     // Если товар был найден - делаем + 1
     if (findCartItem) {
@@ -79,24 +104,16 @@ export async function POST(req: NextRequest) {
           quantity: findCartItem.quantity + 1,
         },
       });
-
-      // const updatedUserCart = await updateCartTotalAmount(token);
-      // const res = NextResponse.json(updatedUserCart);
-      // res.cookies.set("cartToken", token);
-      // return res;
+    } else {
+      await prisma.cartItem.create({
+        data: {
+          cartId: userCart.id,
+          productItemId: body.productItemId,
+          quantity: 1,
+          ingredients: { connect: body.ingredients?.map((id) => ({ id })) },
+        },
+      });
     }
-
-    await prisma.cartItem.create({
-      data: {
-        cartId: userCart.id,
-        productItemId: body.productItemId,
-        quantity: 1,
-        ingredients: { connect: body.ingredients?.map((id) => ({ id })) },
-      },
-    });
-
-    // const updatedUserCart = await updateCartTotalAmount(token);
-    // return NextResponse.json(updatedUserCart);
 
     const updatedUserCart = await updateCartTotalAmount(token);
     const res = NextResponse.json(updatedUserCart);
