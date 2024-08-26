@@ -1,3 +1,6 @@
+export { CheckoutSidebar } from "./CheckoutSidebar";
+export { CheckoutPersonalForm } from "./checkout/checkout-personal-form";
+export { WhiteBlock } from "./white-block";
 export { CartDrawer } from "./cart-drawer";
 export { CartButton } from "./cart-button";
 export { IngredientItem } from "./ingredient-item";

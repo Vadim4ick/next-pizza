@@ -4,12 +4,12 @@ import { Header } from "@/shared/components";
 export const metadata: Metadata = {
   title: "Next Pizza | Главная",
 
-  icons: {
-    icon: {
-      url: "/logo.png",
-      sizes: "32x32",
-    },
-  },
+  //   icons: {
+  //     icon: {
+  //       url: "/logo.png",
+  //       sizes: "32x32",
+  //     },
+  //   },
 };
 
 export default function HomeLayout({
