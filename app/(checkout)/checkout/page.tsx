@@ -13,10 +13,13 @@ import {
   CheckoutFormValues,
   checkoutFormSchema,
 } from "@/shared/constants/checkout-form-schema";
+import { CheckoutAddressForm } from "@/shared/components/shared/checkout/checkout-address-form";
+import { useState } from "react";
 
 export default function CheckoutPage() {
   const { totalAmount, updateItemQuantity, items, removeCartItem, loading } =
     useCart();
+  const [submitting, setSubmitting] = useState(false);
 
   const onClickCountButton = (
     id: number,
@@ -61,14 +64,21 @@ export default function CheckoutPage() {
                 loading={loading}
               />
 
-              <CheckoutPersonalForm />
+              <CheckoutPersonalForm
+                className={loading ? "opacity-40 pointer-events-none" : ""}
+              />
 
-              <WhiteBlock title="3. Адрес доставки">123</WhiteBlock>
+              <CheckoutAddressForm
+                className={loading ? "opacity-40 pointer-events-none" : ""}
+              />
             </div>
 
             {/* Правая часть */}
             <div className="w-[450px]">
-              <CheckoutSidebar totalAmount={totalAmount} />
+              <CheckoutSidebar
+                totalAmount={totalAmount}
+                loading={loading || submitting}
+              />
             </div>
           </div>
         </form>
