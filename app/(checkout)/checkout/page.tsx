@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Container, Title, WhiteBlock } from "@/shared/components";
+import { Container, Title } from "@/shared/components";
 import {
   CheckoutCart,
   CheckoutPersonalForm,
@@ -15,6 +15,8 @@ import {
 } from "@/shared/constants/checkout-form-schema";
 import { CheckoutAddressForm } from "@/shared/components/shared/checkout/checkout-address-form";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { createOrder } from "@/app/actions";
 
 export default function CheckoutPage() {
   const { totalAmount, updateItemQuantity, items, removeCartItem, loading } =
@@ -43,7 +45,27 @@ export default function CheckoutPage() {
   });
 
   const onSubmit = async (data: CheckoutFormValues) => {
-    console.log(data);
+    try {
+      setSubmitting(true);
+
+      const url = await createOrder(data);
+
+      toast.error("Заказ успешно оформлен! 📝 Переход на оплату... ", {
+        icon: "✅",
+      });
+
+      console.log("url", url);
+
+      if (url) {
+        location.href = url;
+      }
+    } catch (err) {
+      console.log(err);
+      setSubmitting(false);
+      toast.error("Не удалось создать заказ", {
+        icon: "❌",
+      });
+    }
   };
 
   return (
