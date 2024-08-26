@@ -1,3 +1,4 @@
+export { CheckoutCart } from "./checkout/checkout-cart";
 export { CheckoutSidebar } from "./CheckoutSidebar";
 export { CheckoutPersonalForm } from "./checkout/checkout-personal-form";
 export { WhiteBlock } from "./white-block";
