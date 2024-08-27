@@ -3,6 +3,7 @@
 import { prisma } from "@/prisma/prisma-client";
 import { PayOrderTemplate } from "@/shared/components/shared/email-templates/pay-order";
 import { CheckoutFormValues } from "@/shared/constants/checkout-form-schema";
+import { createPayment } from "@/shared/lib/creat-payment";
 import { sendEmail } from "@/shared/lib/send-email";
 import { OrderStatus } from "@prisma/client";
 import { cookies } from "next/headers";
@@ -77,17 +78,40 @@ export async function createOrder(data: CheckoutFormValues) {
       },
     });
 
+    const paymentData = await createPayment({
+      amount: order.totalAmount,
+      orderId: order.id,
+      description: "Оплата заказа #" + order.id,
+    });
+
+    console.log("paymentData", paymentData);
+
+    if (!paymentData) {
+      throw new Error("Payment data not found");
+    }
+
+    await prisma.order.update({
+      where: {
+        id: order.id,
+      },
+      data: {
+        paymentId: paymentData.id,
+      },
+    });
+
+    const paymentUrl = paymentData.confirmation.confirmation_url;
+
     await sendEmail(
       data.email,
       "Next Pizza / Оплатите заказ #" + order.id,
       PayOrderTemplate({
         orderId: order.id,
         totalAmount: order.totalAmount,
-        paymentUrl: "https://ya.ru/",
+        paymentUrl: paymentUrl,
       })
     );
 
-    return "https://ya.ru/";
+    return paymentUrl;
   } catch (error) {
     console.log("[CreateOrder] Server error", error);
   }

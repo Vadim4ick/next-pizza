@@ -4,12 +4,13 @@ import { cn } from "@/shared/lib/utils";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-// import { useRouter, useSearchParams } from "next/navigation";
 import { Container } from "./container";
 import { Button } from "../ui";
 import { ArrowRight, ShoppingCart, User } from "lucide-react";
 import { SearchInput } from "./search-input";
 import { CartButton } from "./cart-button";
+import { useRouter, useSearchParams } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface Props {
   hasSearch?: boolean;
@@ -22,31 +23,31 @@ export const Header: React.FC<Props> = ({
   hasCart = true,
   className,
 }) => {
-  // const router = useRouter();
+  const router = useRouter();
   // const [openAuthModal, setOpenAuthModal] = React.useState(false);
 
-  // const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
 
-  //   React.useEffect(() => {
-  //     let toastMessage = "";
+  React.useEffect(() => {
+    let toastMessage = "";
 
-  //     if (searchParams.has("paid")) {
-  //       toastMessage = "Заказ успешно оплачен! Информация отправлена на почту.";
-  //     }
+    if (searchParams.has("paid")) {
+      toastMessage = "Заказ успешно оплачен! Информация отправлена на почту.";
+    }
 
-  //     if (searchParams.has("verified")) {
-  //       toastMessage = "Почта успешно подтверждена!";
-  //     }
+    if (searchParams.has("verified")) {
+      toastMessage = "Почта успешно подтверждена!";
+    }
 
-  //     if (toastMessage) {
-  //       setTimeout(() => {
-  //         router.replace("/");
-  //         toast.success(toastMessage, {
-  //           duration: 3000,
-  //         });
-  //       }, 1000);
-  //     }
-  //   }, []);
+    if (toastMessage) {
+      setTimeout(() => {
+        router.replace("/");
+        toast.success(toastMessage, {
+          duration: 3000,
+        });
+      }, 1000);
+    }
+  }, []);
 
   return (
     <header className={cn("border-b", className)}>
