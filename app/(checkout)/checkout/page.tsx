@@ -14,14 +14,32 @@ import {
   checkoutFormSchema,
 } from "@/shared/constants/checkout-form-schema";
 import { CheckoutAddressForm } from "@/shared/components/shared/checkout/checkout-address-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { createOrder } from "@/app/actions";
+import { useSession } from "next-auth/react";
+import { Api } from "@/shared/services/api-client";
 
 export default function CheckoutPage() {
   const { totalAmount, updateItemQuantity, items, removeCartItem, loading } =
     useCart();
   const [submitting, setSubmitting] = useState(false);
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    async function fetchUserInfo() {
+      const data = await Api.auth.getMe();
+      const [firstName, lastName] = data.fullName.split(" ");
+
+      form.setValue("firstName", firstName);
+      form.setValue("lastName", lastName);
+      form.setValue("email", data.email);
+    }
+
+    if (session) {
+      fetchUserInfo();
+    }
+  }, [session]);
 
   const onClickCountButton = (
     id: number,
@@ -53,8 +71,6 @@ export default function CheckoutPage() {
       toast.error("Заказ успешно оформлен! 📝 Переход на оплату... ", {
         icon: "✅",
       });
-
-      console.log("url", url);
 
       if (url) {
         location.href = url;

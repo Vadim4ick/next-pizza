@@ -11,6 +11,9 @@ import { SearchInput } from "./search-input";
 import { CartButton } from "./cart-button";
 import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
+import { ProfileButton } from "./profile-button";
+import { signIn } from "next-auth/react";
+import { AuthModal } from "./modals/auth-modal/auth-modal";
 
 interface Props {
   hasSearch?: boolean;
@@ -24,7 +27,7 @@ export const Header: React.FC<Props> = ({
   className,
 }) => {
   const router = useRouter();
-  // const [openAuthModal, setOpenAuthModal] = React.useState(false);
+  const [openAuthModal, setOpenAuthModal] = React.useState(false);
 
   const searchParams = useSearchParams();
 
@@ -71,18 +74,13 @@ export const Header: React.FC<Props> = ({
         )}
 
         <div className="flex items-center gap-3">
-          <Button variant={"outline"} className="flex items-center gap-1">
-            <User size={16} />
-            Войти
-          </Button>
+          <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
 
-          {hasCart && <CartButton />}
-          {/* <AuthModal
+          <AuthModal
             open={openAuthModal}
             onClose={() => setOpenAuthModal(false)}
-          /> */}
-
-          {/* <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} /> */}
+          />
+          {hasCart && <CartButton />}
         </div>
       </Container>
     </header>

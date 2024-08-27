@@ -3,14 +3,14 @@ import React from "react";
 import { Title } from "./title";
 import { Button } from "../ui";
 import { Plus } from "lucide-react";
+import { Ingredient } from "@prisma/client";
 
 interface Props {
   id: number;
   name: string;
   price: number;
   imageUrl: string;
-  ingredients: { name: string }[];
-  //   ingredients: Ingredistent[];
+  ingredients: Ingredient[];
   className?: string;
 }
 
