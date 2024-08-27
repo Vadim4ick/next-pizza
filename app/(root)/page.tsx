@@ -1,12 +1,11 @@
-import { prisma } from "@/prisma/prisma-client";
 import {
   Container,
   Filters,
-  ProductCard,
   ProductsGroupList,
   Title,
   TopBar,
 } from "@/shared/components";
+import { Stories } from "@/shared/components/shared/stories";
 import { GetSearchParams, findPizzas } from "@/shared/lib/find-pizzas";
 import { Suspense } from "react";
 
@@ -28,6 +27,8 @@ export default async function Home({
           (category) => category.products.length > 0
         )}
       />
+
+      <Stories />
 
       <Container className="pb-14 mt-10">
         <div className="flex gap-[60px]">
